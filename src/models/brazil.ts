@@ -9,28 +9,33 @@ import { Suriname } from "../countries/suriname/suriname";
 import { Uruguai } from "../countries/uruguay/uruguay";
 import { RequestHandler } from "express";
 
+
+export async function fetchCountry(country: string, Schema: any) {
+    try {
+        await fetch(`http://universities.hipolabs.com/search?country=${country}`)
+        .then((response: { json: () => any; }) => response.json())
+        .then((response: any) => response.map(async (country: any) => {
+            const countryVerify = await Schema.findOne({
+                university: country.name
+            });
+            if (!countryVerify) {
+                const newCountry = new Schema({
+                    university: country.name
+                })
+                await newCountry.save();
+                return newCountry;
+            }
+        }
+        ))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export class Countries {
     brazil: RequestHandler = async (req,res, next) => {
-        try {
-            await fetch('http://universities.hipolabs.com/search?country=brazil')
-            .then((response: { json: () => any; }) => response.json())
-            .then((response: any) => response.map(async (country: any) => {
-                const countryVerify = await Brazil.findOne({
-                    university: country.name
-                });
-                if (!countryVerify) {
-                    const newCountry = new Brazil({
-                        university: country.name
-                    })
-                    await newCountry.save();
-                    return newCountry;
-                }
-            },
-            res.json(`sucess`)
-            ))
-        } catch (error) {
-            res.send(400)
-        }
+        fetchCountry('brazil', Brazil);
+        res.json('teste')
     }
 
     argentina: RequestHandler = async(req,res,next) => {

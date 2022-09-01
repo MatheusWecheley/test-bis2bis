@@ -6,7 +6,7 @@ const app = express();
 const database = authenticate()
 
 const country = new Countries;
-app.use('/', country.argentina)
+app.use('/', country.brazil)
 // const country = new Countries();
 // country.brazil();
 // country.argentina();

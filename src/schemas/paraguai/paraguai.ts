@@ -4,7 +4,7 @@ import { ICountry } from '../brazil/brazil';
 const paraguaiSchema = new Schema<ICountry>({
     university: { type: String, required: true}
 },
-    {collection: 'paraguai'}
+    {collection: 'paraguay'}
 );
 
-export const Paraguai = model<ICountry>('Paraguai', paraguaiSchema);
+export const Paraguai = model<ICountry>('Paraguay', paraguaiSchema);

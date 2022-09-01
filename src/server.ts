@@ -13,7 +13,7 @@ country.colombia();
 country.paraguai();
 country.peru();
 country.suriname();
-country.uruguay();
+// country.uruguay();
 
 app.listen(3000, () => {
     console.log("Server Running");

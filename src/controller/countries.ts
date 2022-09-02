@@ -10,22 +10,22 @@ import { Uruguai } from "../schemas/uruguay/uruguay";
 
 export const getAllUniversities: RequestHandler = async (req, res, next) => {
     const countries: object[] = [Brazil, Chile, Colombia, Paraguai, Suriname, Peru, Argentina, Uruguai]
+    const { page = 1, limit = 10}: any = req.query;
+    try {
+        const data = await Brazil.find()
+        .limit((limit * 1))
+        .skip((page - 1) * limit)
+        .exec()
 
-    const result: any = countries.map(async (Country: any) => {
-        const allUniversities: any[] = await Country.find().limit(20);
+        const count = await Brazil.countDocuments();
 
-        if (allUniversities) {
-            const result = allUniversities.map((filter: any) => {
-                const data = [filter.id, filter.state_province, filter.name, filter.country];
-                return data;
-            })
-            return result;
-        }
+        res.json({
+            data,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page
+        })
+
+    } catch (error) {
+        console.log('erro')
     }
-    )
-    const texte = await result
-    Promise.all(texte)
-    .then((value) => {
-        res.json(value)
-    });    
 }

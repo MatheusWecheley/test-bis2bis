@@ -15,11 +15,15 @@ export async function fetchCountry(country: string, Schema: any) {
         .then((response: { json: () => any; }) => response.json())
         .then((response: any) => response.map(async (country: any) => {
             const countryVerify = await Schema.findOne({
-                university: country.name
+                name: country.name
             });
             if (!countryVerify) {
                 const newCountry = new Schema({
-                    university: country.name
+                    country: country.country,
+                    state_province: country.stateprovince,
+                    name: country.name,
+                    alpha_two_code: country.alpha_two_code,
+                    web_pages: country.web_pages
                 })
                 await newCountry.save();
                 return newCountry;

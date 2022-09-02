@@ -3,7 +3,11 @@ import { ICountry } from '../brazil/brazil';
 
 
 const argentinaSchema = new Schema<ICountry>({
-    university: { type: String, required: true}
+    country: {type: String},
+    state_province: {type: String},
+    name: { type: String, required: true},
+    alpha_two_code: {type: String},
+    web_pages: {type: [String]}
 },
     { collection: 'argentina'}
 );

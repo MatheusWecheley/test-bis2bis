@@ -12,15 +12,20 @@ export const getAllUniversities: RequestHandler = async (req, res, next) => {
     const countries: object[] = [Brazil, Chile, Colombia, Paraguai, Suriname, Peru, Argentina, Uruguai]
     const { page = 1, limit = 10}: any = req.query;
     try {
-        const data = await Brazil.find()
+        const data: any[] = await Brazil.find()
         .limit((limit * 1))
         .skip((page - 1) * limit)
         .exec()
 
+        const result = data.map((filter: any) => {
+            const data = [filter.id, filter.country, filter.state_province, filter.name]
+            return data
+        })
+
         const count = await Brazil.countDocuments();
 
         res.json({
-            data,
+            result,
             totalPages: Math.ceil(count / limit),
             currentPage: page
         })

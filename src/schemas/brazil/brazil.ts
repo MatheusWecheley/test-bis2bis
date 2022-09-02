@@ -12,7 +12,7 @@ export interface ICountry {
 const brazilSchema = new Schema<ICountry>({
     country: {type: String},
     state_province: {type: String},
-    name: { type: String, required: true},
+    name: { type: String},
     alpha_two_code: {type: String},
     web_pages: {type: [String]}
 },

@@ -7,27 +7,40 @@ import { Paraguai } from "../schemas/paraguai/paraguai";
 import { Peru } from "../schemas/peru/peru";
 import { Suriname } from "../schemas/suriname/suriname";
 import { Uruguai } from "../schemas/uruguay/uruguay";
+import { PaginationParameters} from 'mongoose-paginate-v2'
 
 export const getAllUniversities: RequestHandler = async (req, res, next) => {
     const countries: object[] = [Brazil, Chile, Colombia, Paraguai, Suriname, Peru, Argentina, Uruguai]
-    const { page = 1, limit = 10}: any = req.query;
-    try {
-        const data: any[] = await Brazil.find()
-        .limit((limit * 1))
-        .skip((page - 1) * limit)
-        .exec()
+    const { page, limit}: any = req.query;
+    
+    // req.query = {
+    //     page: parseInt(1),
+    //     limit: parseInt(10),
+    //     query: {"country": "Brazil"},
+    //     projection: {
+    //         "country": 'brazil',
+    //         "name": 1,
+    // }
+    // }
+    
 
-        const result = data.map((filter: any) => {
-            const data = [filter.id, filter.country, filter.state_province, filter.name]
-            return data
+    try {
+        
+        var query = { name: 'brazil' }
+
+        const options = {
+            select: 'name country alpha_two_code',
+            page: parseInt(page, 10) | 1,
+            limit: parseInt(limit, 20) | 20,
+        }
+
+        const data = countries.map(async (index: any) => {
+            return await index.paginate(query, options);
         })
 
-        const count = await Brazil.countDocuments();
-
-        res.json({
-            result,
-            totalPages: Math.ceil(count / limit),
-            currentPage: page
+        Promise.all(data)
+        .then((value) => {
+            res.json(value)
         })
 
     } catch (error) {

@@ -1,5 +1,5 @@
-import { Schema, model, Types} from 'mongoose';
-const mongoosePaginate = require('mongoose-paginate-v2');
+import { Schema, model, Types, PaginateModel} from 'mongoose';
+import paginate from 'mongoose-paginate-v2'
 
 export interface ICountry {
     id: string,
@@ -21,5 +21,5 @@ const brazilSchema = new Schema<ICountry>({
 );
 
 
-brazilSchema.plugin(mongoosePaginate)
-export const Brazil = model<ICountry>('Brazil', brazilSchema);
+brazilSchema.plugin(paginate)
+export const Brazil = model<ICountry, PaginateModel<ICountry>>('Brazil', brazilSchema);

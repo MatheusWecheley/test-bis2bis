@@ -77,5 +77,33 @@ export class Countries {
             res.sendStatus(400)
         }
     }
+
+    peru: RequestHandler = async (req, res, next) => {
+        try {
+            await fetchCountry('peru', Peru);
+            next();
+        } catch (error) {
+            res.sendStatus(400)
+        }
+    }
+    
+    colombia: RequestHandler = async (req, res, next) => {
+        try {
+            await fetchCountry('colombia', Colombia);
+            next();
+        } catch (error) {
+            res.sendStatus(400)
+        }
+    }
+
+    paraguay: RequestHandler = async (req, res, next) => {
+        try {
+            await fetchCountry('paraguay', Paraguai);
+            next();
+        } catch (error) {
+            res.sendStatus(400)
+        }
+    }
+
 }
 

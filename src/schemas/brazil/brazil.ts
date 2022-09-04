@@ -8,6 +8,7 @@ export interface ICountry {
     name: string,
     alpha_two_code: string
     web_pages: Types.Array<string>,
+    domains: Types.Array<string>
 }
 
 const brazilSchema = new Schema<ICountry>({
@@ -15,7 +16,8 @@ const brazilSchema = new Schema<ICountry>({
     state_province: {type: String},
     name: { type: String},
     alpha_two_code: {type: String},
-    web_pages: {type: [String]}
+    web_pages: {type: [String]},
+    domains: {type: [String]}
 },
     { collection: 'brazil'}
 );

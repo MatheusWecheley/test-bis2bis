@@ -28,7 +28,7 @@ export const getAllUniversities: RequestHandler = async (req, res, next) => {
         const data = countries.map(async (index: any) => {
             return await index.paginate(query, options);
         })
-        
+
         Promise.all(data)
         .then((value) => {
             res.json(value)
@@ -36,5 +36,23 @@ export const getAllUniversities: RequestHandler = async (req, res, next) => {
 
     } catch (error) {
         console.log('erro')
+    }
+}
+
+export const getUniversityById: RequestHandler = async (req, res, next) => {
+    const id  = req.params.id;
+    const countries: object[] = [Argentina, Chile, Colombia, Paraguai, Suriname, Peru, Brazil, Uruguai]
+
+    try {
+
+        countries.forEach(async (index: any ) => {
+            const data = await index.findById(id)
+            if(data != null) {
+                res.json(data)
+            }    
+        })
+    
+    } catch (error) {
+        res.json({error: 'not possible request!'})        
     }
 }

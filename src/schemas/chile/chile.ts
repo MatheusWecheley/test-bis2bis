@@ -1,4 +1,4 @@
-import { Schema, model, PaginateModel} from 'mongoose';
+import { Schema, model} from 'mongoose';
 import { ICountry } from '../brazil/brazil';
 import paginate from 'mongoose-paginate-v2'
 
@@ -15,4 +15,4 @@ const chileSchema = new Schema<ICountry>({
 );
 
 chileSchema.plugin(paginate)
-export const Chile = model<ICountry, PaginateModel<ICountry>>('Chile', chileSchema);
+export const Chile = model<ICountry>('Chile', chileSchema);

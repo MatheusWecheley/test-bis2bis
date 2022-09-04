@@ -1,6 +1,6 @@
 import { Schema, model} from 'mongoose';
 import { ICountry } from '../brazil/brazil';
-const mongoosePaginate = require('mongoose-paginate-v2');
+import paginate from 'mongoose-paginate-v2'
 
 
 const colombiaSchema = new Schema<ICountry>({
@@ -13,5 +13,5 @@ const colombiaSchema = new Schema<ICountry>({
     {collection: 'colombia'}
 );
 
-colombiaSchema.plugin(mongoosePaginate)
+colombiaSchema.plugin(paginate)
 export const Colombia = model<ICountry>('Colombia', colombiaSchema);

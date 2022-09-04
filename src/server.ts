@@ -8,7 +8,7 @@ const database = authenticate()
 const country = new Countries;
 
 
-app.use('/', [country.argentina, country.brazil, country.chile, country.suriname, country.colombia, country.paraguay, country.peru, country.uruguay]);
+app.use('/teste', [country.argentina, country.brazil, country.chile, country.suriname, country.colombia, country.paraguay, country.peru, country.uruguay]);
 app.use('/universities', brazilRouter);
 
 

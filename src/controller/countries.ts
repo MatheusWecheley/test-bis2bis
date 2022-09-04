@@ -14,7 +14,13 @@ export const getAllUniversities: RequestHandler = async (req, res, next) => {
     const { page, limit, country}: any = req.query;
 
     try {
-        let query = {}
+
+        type Country = {
+            country?: string | object,
+        }
+
+        let query: Country = {}
+
         if(country) {
             query.country = { $regex: new RegExp(country), $options: 'i'};
         }
@@ -55,4 +61,25 @@ export const getUniversityById: RequestHandler = async (req, res, next) => {
     } catch (error) {
         res.json({error: 'not possible request!'})        
     }
+}
+
+export const deleteUniversity: RequestHandler = async (req, res, next) => {
+    const id = req.params.id;
+    const countries: object[] = [Argentina, Chile, Colombia, Paraguai, Suriname, Peru, Brazil, Uruguai]
+
+    try {
+
+        countries.forEach(async (index: any ) => {
+            const result = await index.findByIdAndRemove({_id: id});
+            if(result) {
+                res.json({sucess: 'Success remove University}', id: id});
+            } else {
+                console.log('Collection not used');
+            }
+        })
+
+    } catch (error) {
+        res.json({error: error});
+    }
+
 }

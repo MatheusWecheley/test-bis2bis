@@ -32,77 +32,19 @@ export async function fetchCountry(country: string, Schema: any) {
         ))
 }
 
-export class Countries {
-    brazil: RequestHandler = async (req, res, next) => {
-        try {
-            await fetchCountry('brazil', Brazil);
-            next();
-        } catch (error) {
-            res.sendStatus(400)
-        }
-    }
+export const Countries: RequestHandler = async (req, res, next) => {
+    try {
+        const countriesSchema: object[] = [Brazil, Chile, Colombia, Paraguai, Suriname, Peru, Argentina, Uruguai]
+        const countries = ['brazil', 'chile', 'colombia', 'paraguay', 'suriname', 'peru', 'argentina', 'uruguay']
 
-    argentina: RequestHandler = async (req, res, next) => {
-        try {
-            await fetchCountry('argentina', Argentina);
-            next();
-        } catch (error) {
-            res.sendStatus(400)
+        for(var i = 0; i <= countries.length; i++) {
+            const result = await fetchCountry(countries[i], countriesSchema[i]);
         }
-    }
 
-    chile: RequestHandler = async (req, res, next) => {
-        try {
-            await fetchCountry('chile', Chile);
-            next();
-        } catch (error) {
-            res.sendStatus(400)
-        }
-    }
-
-    suriname: RequestHandler = async (req, res, next) => {
-        try {
-            await fetchCountry('suriname', Suriname);
-            next()
-        } catch (error) {
-            res.sendStatus(400)
-        }
-    }
-
-    uruguay: RequestHandler = async (req, res, next) => {
-        try {
-            await fetchCountry('uruguay', Uruguai);
-            next();
-        } catch (error) {
-            res.sendStatus(400)
-        }
-    }
-
-    peru: RequestHandler = async (req, res, next) => {
-        try {
-            await fetchCountry('peru', Peru);
-            next();
-        } catch (error) {
-            res.sendStatus(400)
-        }
-    }
-    
-    colombia: RequestHandler = async (req, res, next) => {
-        try {
-            await fetchCountry('colombia', Colombia);
-            next();
-        } catch (error) {
-            res.sendStatus(400)
-        }
-    }
-
-    paraguay: RequestHandler = async (req, res, next) => {
-        try {
-            await fetchCountry('paraguay', Paraguai);
-            next();
-        } catch (error) {
-            res.sendStatus(400)
-        }
+        res.json({message: "Fetched universities successfully"})
+        next();
+    } catch (error) {
+        res.json({message: 'error fetch universities'})
     }
 
 }

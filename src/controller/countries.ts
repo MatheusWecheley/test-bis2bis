@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { Argentina } from "../schemas/argentina/argentina";
-import { Brazil } from "../schemas/brazil/brazil";
+import { Brazil, ICountry } from "../schemas/brazil/brazil";
 import { Chile } from "../schemas/chile/chile";
 import { Colombia } from "../schemas/colombia/colombia";
 import { Paraguai } from "../schemas/paraguai/paraguai";
@@ -47,7 +47,8 @@ export const getAllUniversities: RequestHandler = async (req, res, next) => {
 
 export const getUniversityById: RequestHandler = async (req, res, next) => {
     const id  = req.params.id;
-    const countries: object[] = [Argentina, Chile, Colombia, Paraguai, Suriname, Peru, Brazil, Uruguai]
+    const countries: 
+    object[] = [Argentina, Chile, Colombia, Paraguai, Suriname, Peru, Brazil, Uruguai]
 
     try {
 
@@ -61,6 +62,124 @@ export const getUniversityById: RequestHandler = async (req, res, next) => {
     } catch (error) {
         res.json({error: 'not possible request!'})        
     }
+}
+
+export const createUniversity: RequestHandler = async(req, res, next) => {
+    const {alpha_two_code, web_pages, name, country, domains, state_province} = req.body
+    const countries: any = {Argentina, Chile, Colombia, Paraguai, Suriname, Peru, Brazil, Uruguai}
+    
+
+    try {
+        
+        if(country.toLowerCase() == 'brazil') {
+            const newUniversity = new Brazil({
+                alpha_two_code: alpha_two_code,
+                web_pages: web_pages,
+                name: name,
+                country: country,
+                domains: domains,
+                state_province: state_province
+            })
+            await newUniversity.save()
+            res.json({newUniversity});
+
+        } else if (country.toLowerCase() == 'chile') {
+
+            const newUniversity = new Chile({
+                alpha_two_code: alpha_two_code,
+                web_pages: web_pages,
+                name: name,
+                country: country,
+                domains: domains,
+                state_province: state_province
+            })
+            await newUniversity.save()
+            res.json({newUniversity});
+
+        }else if (country.toLowerCase() == 'argentina') {
+
+            const newUniversity = new Argentina({
+                alpha_two_code: alpha_two_code,
+                web_pages: web_pages,
+                name: name,
+                country: country,
+                domains: domains,
+                state_province: state_province
+            })
+            await newUniversity.save()
+            res.json({newUniversity});
+
+        } else if (country.toLowerCase() == 'colombia') {
+
+            const newUniversity = new Colombia({
+                alpha_two_code: alpha_two_code,
+                web_pages: web_pages,
+                name: name,
+                country: country,
+                domains: domains,
+                state_province: state_province
+            })
+            await newUniversity.save()
+            res.json({newUniversity});
+
+        } else if (country.toLowerCase() == 'peru') {
+            
+            const newUniversity = new Peru({
+                alpha_two_code: alpha_two_code,
+                web_pages: web_pages,
+                name: name,
+                country: country,
+                domains: domains,
+                state_province: state_province
+            })
+            await newUniversity.save()
+            res.json({newUniversity});            
+        } else if (country.toLowerCase() == 'suriname') {
+            
+            const newUniversity = new Suriname({
+                alpha_two_code: alpha_two_code,
+                web_pages: web_pages,
+                name: name,
+                country: country,
+                domains: domains,
+                state_province: state_province
+            })
+            await newUniversity.save()
+            res.json({newUniversity});
+            
+        } else if (country.toLowerCase() == 'uruguay') {
+            
+            const newUniversity = new Uruguai({
+                alpha_two_code: alpha_two_code,
+                web_pages: web_pages,
+                name: name,
+                country: country,
+                domains: domains,
+                state_province: state_province
+            })
+            await newUniversity.save()
+            res.json({newUniversity});      
+
+        } else if (country.toLowerCase() == 'paraguay') {
+            
+            const newUniversity = new Paraguai({
+                alpha_two_code: alpha_two_code,
+                web_pages: web_pages,
+                name: name,
+                country: country,
+                domains: domains,
+                state_province: state_province
+            })
+            await newUniversity.save()
+            res.json({newUniversity});            
+        }
+
+    } catch (error) {
+        res.json({message: 'Error in create new University', error: error})
+    }
+
+
+
 }
 
 export const updateUniversity: RequestHandler = async(req,res, next ) => {

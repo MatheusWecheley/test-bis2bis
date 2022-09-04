@@ -7,7 +7,8 @@ const peruSchema = new Schema<ICountry>({
     state_province: {type: String},
     name: { type: String, required: true},
     alpha_two_code: {type: String},
-    web_pages: {type: [String]}
+    web_pages: {type: [String]},
+    domains: {type: [String]}
 },
     {collection: 'peru'}
 );

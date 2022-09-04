@@ -63,6 +63,30 @@ export const getUniversityById: RequestHandler = async (req, res, next) => {
     }
 }
 
+export const updateUniversity: RequestHandler = async(req,res, next ) => {
+    const id = req.params.id;
+    const {web_pages, name, domains} = req.body
+    const countries: object[] = [Argentina, Chile, Colombia, Paraguai, Suriname, Peru, Brazil, Uruguai]
+
+    try {
+
+        countries.forEach(async (index: any ) => {
+            const universityUpdate = await index.findByIdAndUpdate({_id: id}, { 
+                web_pages: web_pages,
+                name: name,
+                domains: domains});
+            if(universityUpdate ) {
+                res.json({message: 'User updated success!'})
+            } else {
+                console.log('Collection not used')
+            }
+        })
+    } catch (error) {
+        
+    }
+
+}
+
 export const deleteUniversity: RequestHandler = async (req, res, next) => {
     const id = req.params.id;
     const countries: object[] = [Argentina, Chile, Colombia, Paraguai, Suriname, Peru, Brazil, Uruguai]

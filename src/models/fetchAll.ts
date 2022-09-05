@@ -35,7 +35,7 @@ export async function fetchCountry(country: string, Schema: any) {
 export const Countries: RequestHandler = async (req, res, next) => {
     try {
         const countriesSchema: object[] = [Brazil, Chile, Colombia, Paraguai, Suriname, Peru, Argentina, Uruguai]
-        const countries = ['brazil', 'chile', 'colombia', 'paraguay', 'suriname', 'peru', 'argentina', 'uruguay']
+        const countries: string[] = ['brazil', 'chile', 'colombia', 'paraguay', 'suriname', 'peru', 'argentina', 'uruguay']
 
         for(var i = 0; i <= countries.length; i++) {
             const result = await fetchCountry(countries[i], countriesSchema[i]);

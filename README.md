@@ -3,10 +3,10 @@
 ### Para correta instalação e execução desse projeto, é recomendada ter globalmente instalado "node, npm, yarn" (Necessário ter o Docker instalado também).
 
 ## Instalação
-`npm install`
+Utilize o comando `npm install` para instalar as dependencias logo após o git clone.
 
 ## Execução
-`docker-compose build && docker-compose up -d`
+`docker-compose build && docker-compose up -d` para iniciar o container.
 # Documentação
 
 <h3>Dependencias</h3>

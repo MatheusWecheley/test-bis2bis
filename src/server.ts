@@ -1,25 +1,24 @@
 import express from 'express';
-import { Countries } from './models/fetchAll';
+import {Countries} from './models/fetchAll';
 import authenticate  from './database/database';
 import countriesRouter from './routes/router';
 import bodyParser from 'body-parser';
+const {APP_PORT} = process.env;
+require('dotenv/config');
 
 const app = express();
 const database = authenticate()
-const country = new Countries;
-
-
 
 app.use(bodyParser.json());
 app.use(express.json())
 
-app.use('/populate', [country.argentina, country.brazil, country.chile, country.suriname, country.colombia, country.paraguay, country.peru, country.uruguay]);
+
+app.use('/populate', Countries);
 app.use('/universities', countriesRouter);
 
 
-
 try {
-    app.listen(3000, () => {
+    app.listen(APP_PORT, () => {
         console.log("Server Running");
     })
 } catch (error) {

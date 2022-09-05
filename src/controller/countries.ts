@@ -31,11 +31,11 @@ export const getAllUniversities: RequestHandler = async (req, res, next) => {
             limit: parseInt(limit, 20) | 20,
         }
 
-        const data = countries.map(async (index: any) => {
+        const result = countries.map(async (index: any) => {
             return await index.paginate(query, options);
         })
 
-        Promise.all(data)
+        Promise.all(result)
         .then((value) => {
             res.json(value)
         })
@@ -66,12 +66,19 @@ export const getUniversityById: RequestHandler = async (req, res, next) => {
 
 export const createUniversity: RequestHandler = async(req, res, next) => {
     const {alpha_two_code, web_pages, name, country, domains, state_province} = req.body
-    const countries: any = {Argentina, Chile, Colombia, Paraguai, Suriname, Peru, Brazil, Uruguai}
     
 
     try {
         
         if(country.toLowerCase() == 'brazil') {
+            
+            const universityVerifiy = await Brazil.findOne({name: name});
+
+            if(universityVerifiy) {
+                res.json({message: 'error, university has existed!'})
+
+            } else {
+                
             const newUniversity = new Brazil({
                 alpha_two_code: alpha_two_code,
                 web_pages: web_pages,
@@ -82,9 +89,15 @@ export const createUniversity: RequestHandler = async(req, res, next) => {
             })
             await newUniversity.save()
             res.json({newUniversity});
-
+        }
+           
         } else if (country.toLowerCase() == 'chile') {
 
+            const universityVerifiy = await Chile.findOne({name: name});
+
+            if(universityVerifiy) {
+                res.json({message: 'error, university has existed!'})
+            } else {    
             const newUniversity = new Chile({
                 alpha_two_code: alpha_two_code,
                 web_pages: web_pages,
@@ -95,9 +108,15 @@ export const createUniversity: RequestHandler = async(req, res, next) => {
             })
             await newUniversity.save()
             res.json({newUniversity});
+        }
 
         }else if (country.toLowerCase() == 'argentina') {
 
+            const universityVerifiy = await Argentina.findOne({name: name});
+
+            if(universityVerifiy) {
+                res.json({message: 'error, university has existed!'})
+            } else {
             const newUniversity = new Argentina({
                 alpha_two_code: alpha_two_code,
                 web_pages: web_pages,
@@ -108,9 +127,15 @@ export const createUniversity: RequestHandler = async(req, res, next) => {
             })
             await newUniversity.save()
             res.json({newUniversity});
+        }
 
         } else if (country.toLowerCase() == 'colombia') {
 
+            const universityVerifiy = await Colombia.findOne({name: name});
+
+            if(universityVerifiy) {
+                res.json({message: 'error, university has existed!'})
+            } else {
             const newUniversity = new Colombia({
                 alpha_two_code: alpha_two_code,
                 web_pages: web_pages,
@@ -121,9 +146,15 @@ export const createUniversity: RequestHandler = async(req, res, next) => {
             })
             await newUniversity.save()
             res.json({newUniversity});
+        }
 
         } else if (country.toLowerCase() == 'peru') {
-            
+        
+            const universityVerifiy = await Peru.findOne({name: name});
+
+            if(universityVerifiy) {
+                res.json({message: 'error, university has existed!'})
+            } else {
             const newUniversity = new Peru({
                 alpha_two_code: alpha_two_code,
                 web_pages: web_pages,
@@ -133,9 +164,16 @@ export const createUniversity: RequestHandler = async(req, res, next) => {
                 state_province: state_province
             })
             await newUniversity.save()
-            res.json({newUniversity});            
+            res.json({newUniversity});        
+        }
+
         } else if (country.toLowerCase() == 'suriname') {
-            
+
+            const universityVerifiy = await Suriname.findOne({name: name});
+
+            if(universityVerifiy) {
+                res.json({message: 'error, university has existed!'})
+            } else {
             const newUniversity = new Suriname({
                 alpha_two_code: alpha_two_code,
                 web_pages: web_pages,
@@ -146,9 +184,15 @@ export const createUniversity: RequestHandler = async(req, res, next) => {
             })
             await newUniversity.save()
             res.json({newUniversity});
-            
+        }
+
         } else if (country.toLowerCase() == 'uruguay') {
             
+            const universityVerifiy = await Uruguai.findOne({name: name});
+
+            if(universityVerifiy) {
+                res.json({message: 'error, university has existed!'})
+            } else {
             const newUniversity = new Uruguai({
                 alpha_two_code: alpha_two_code,
                 web_pages: web_pages,
@@ -159,9 +203,14 @@ export const createUniversity: RequestHandler = async(req, res, next) => {
             })
             await newUniversity.save()
             res.json({newUniversity});      
-
+        }
         } else if (country.toLowerCase() == 'paraguay') {
-            
+
+            const universityVerifiy = await Paraguai.findOne({name: name});
+
+            if(universityVerifiy) {
+                res.json({message: 'error, university has existed!'})
+            } else {
             const newUniversity = new Paraguai({
                 alpha_two_code: alpha_two_code,
                 web_pages: web_pages,
@@ -171,7 +220,8 @@ export const createUniversity: RequestHandler = async(req, res, next) => {
                 state_province: state_province
             })
             await newUniversity.save()
-            res.json({newUniversity});            
+            res.json({newUniversity});
+        }            
         }
 
     } catch (error) {
@@ -201,7 +251,7 @@ export const updateUniversity: RequestHandler = async(req,res, next ) => {
             }
         })
     } catch (error) {
-        
+        res.json({message: "not possible update universities"});
     }
 
 }

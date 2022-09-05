@@ -31,11 +31,11 @@ export const getAllUniversities: RequestHandler = async (req, res, next) => {
             limit: parseInt(limit, 20) | 20,
         }
 
-        const data = countries.map(async (index: any) => {
+        const result = countries.map(async (index: any) => {
             return await index.paginate(query, options);
         })
 
-        Promise.all(data)
+        Promise.all(result)
         .then((value) => {
             res.json(value)
         })
@@ -201,7 +201,7 @@ export const updateUniversity: RequestHandler = async(req,res, next ) => {
             }
         })
     } catch (error) {
-        
+        res.json({message: "not possible update universities"});
     }
 
 }

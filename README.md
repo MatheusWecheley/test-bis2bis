@@ -1,6 +1,6 @@
 <h2>Olá, este é um repositorio referente a vaga de desenvolvedor back end!</h2>
 
-### Para correta instalação e execução desse projeto, é recomendada ter globalmente instalado "node, npm, yarn" (O yarn nas versões mais recentes já suporta a execução do jest sem prévia configuração).
+### Para correta instalação e execução desse projeto, é recomendada ter globalmente instalado "node, npm, yarn" (Necessário ter o Docker instalado também).
 
 ## Instalação
 `npm install`

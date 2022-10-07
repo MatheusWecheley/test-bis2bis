@@ -1,5 +1,5 @@
-import { Schema, model, Types} from 'mongoose';
-import paginate from 'mongoose-paginate-v2'
+import { Schema, model, Model, Types } from 'mongoose';
+import  paginate from 'mongoose-paginate-v2';
 
 export interface ICountry {
     id: string,
@@ -11,7 +11,7 @@ export interface ICountry {
     domains: Types.Array<string>
 }
 
-const brazilSchema = new Schema<ICountry>({
+const CountrySchema = new Schema<ICountry>({
     country: {type: String},
     state_province: {type: String},
     name: { type: String},
@@ -19,9 +19,8 @@ const brazilSchema = new Schema<ICountry>({
     web_pages: {type: [String]},
     domains: {type: [String]}
 },
-    { collection: 'brazil'}
+    { collection: 'country'}
 );
 
-
-brazilSchema.plugin(paginate)
-export const Brazil = model<ICountry>('Brazil', brazilSchema);
+CountrySchema.plugin(paginate)
+export const Country = model<ICountry>('Country', CountrySchema);

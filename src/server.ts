@@ -14,7 +14,7 @@ app.use(express.json())
 
 
 app.use('/populate', Countries);
-app.use('/universities', countriesRouter);
+// app.use('/universities', countriesRouter);
 
 try {
     app.listen(APP_PORT, () => {

@@ -1,17 +1,17 @@
 import { RequestHandler, response } from "express";
 import fetch from 'node-fetch';
-import { Country, ICountry } from "../entities/Country";
+import { Country } from "../entities/Country";
 
 
-export async function fetchCountry(country: string) {
+async function fetchCountry(country: string) {
     await fetch(`http://universities.hipolabs.com/search?country=${country}`)
         .then((response: { json: () => any; }) => response.json())
         .then((response: any) => response.map(async (country: any) => {
 
             const countryVerify = await Country.findOne({
                 name: country.name
-
             });
+            
             if (!countryVerify) {
                 const newCountry = new Country({
                     country: country.country,
